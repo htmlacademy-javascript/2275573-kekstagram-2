@@ -53,6 +53,10 @@ describe('getIntegerNumber', () => {
     expect(getIntegerNumber('5.67')).toBe(567);
   });
 
+  it('should yield a currect handle negative numbers', () => {
+    expect(getIntegerNumber(-42)).toBe(42);
+  });
+
   it('should yield NaN if there are no digits in the input', () => {
     expect(isNaN(getIntegerNumber('abc'))).toBe(true);
     expect(isNaN(getIntegerNumber(''))).toBe(true);
