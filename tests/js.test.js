@@ -1,67 +1,69 @@
 import {describe, it, expect} from 'vitest';
-import {checkStringValid, isPalindrome, getIntegerNumber} from '../js/functions';
+import { createPosts, POST_COUNT, COMMENTS_COUNT, LIKES_COUNT, DESCRIPTION} from '../js/main.js';
 
-describe('checkStringValid', () => {
-  it('should return true if string length is less than lengthMax', () => {
-    expect(checkStringValid('Утро', 5)).toBe(true);
+describe('createPosts', () => {
+  it('should create an array with POST_COUNT posts', () => {
+    const posts = createPosts();
+
+    expect(posts).toHaveLength(POST_COUNT);
   });
-  it('should return true if string length is exactly lengthMax', () => {
-    expect(checkStringValid('Привет', 6)).toBe(true);
+
+  it('each post should have correct structure', () => {
+    const posts = createPosts();
+    const post = posts[0];
+
+    expect(post).toHaveProperty('id');
+    expect(post).toHaveProperty('url');
+    expect(post).toHaveProperty('likes');
+    expect(post).toHaveProperty('description');
+    expect(post).toHaveProperty('comments');
+
+    expect(typeof post.id).toBe('number');
+    expect(typeof post.url).toBe('string');
+    expect(typeof post.likes).toBe('number');
+    expect(typeof post.description).toBe('string');
+    expect(Array.isArray(post.comments)).toBe(true);
   });
-  it('should return false if string length is more than lengthMax', () => {
-    expect(checkStringValid('abcdef', 5)).toBe(false);
+
+  it('comments should be an array with length in COMMENTS_COUNT range', () => {
+    const posts = createPosts();
+
+    posts.forEach((post) => {
+      expect(Array.isArray(post.comments)).toBe(true);
+      expect(post.comments.length).toBeGreaterThanOrEqual(COMMENTS_COUNT.min);
+      expect(post.comments.length).toBeLessThanOrEqual(COMMENTS_COUNT.max);
+    });
   });
-  it('should return true for empty string and positive lengthMax', () => {
-    expect(checkStringValid('', 3)).toBe(true);
-  });
-  it('should return true for empty string and zero lengthMax', () => {
-    expect(checkStringValid('', 0)).toBe(true);
-  });
-  it('should throw an error if string is undefined', () => {
-    expect(() => checkStringValid(undefined, 3)).toThrow();
+
+  it('each comment should have correct properties', () => {
+    const posts = createPosts();
+
+    posts.forEach((post) => {
+      post.comments.forEach((comment) => {
+        expect(comment).toHaveProperty('id');
+        expect(comment).toHaveProperty('avatar');
+        expect(comment).toHaveProperty('message');
+        expect(comment).toHaveProperty('name');
+
+        expect(typeof comment.id).toBe('number');
+        expect(typeof comment.avatar).toBe('string');
+        expect(typeof comment.message).toBe('string');
+        expect(typeof comment.name).toBe('string');
+
+        // Check avatar filename pattern
+        expect(comment.avatar).toMatch(/img\/avatar-\d\.svg/);
+      });
+    });
   });
 });
 
-describe('isPalindrome', () => {
-  it('should return true for simple palindromes', () => {
-    expect(isPalindrome('мадам')).toBe(true);
-  });
+it('each post should have likes within LIKES_COUNT range and a description', () => {
+  const posts = createPosts();
 
-  it('should return true for palindromes with spaces and punctuation', () => {
-    expect(isPalindrome('А роза упала на лапу Азора')).toBe(true);
-  });
-
-  it('should return false for non-palindromes', () => {
-    expect(isPalindrome('Тест')).toBe(false);
-  });
-
-  it('should work with empty strings and single characters', () => {
-    expect(isPalindrome('')).toBe(true);
-    expect(isPalindrome('a')).toBe(true);
-  });
-});
-
-describe('getIntegerNumber', () => {
-  it('should extract digits from a string with letters and symbols', () => {
-    expect(getIntegerNumber('abc123def')).toBe(123);
-    expect(getIntegerNumber('test-456-test')).toBe(456);
-    expect(getIntegerNumber('a1b2c3')).toBe(123);
-  });
-
-  it('should process floating‑point numbers', () => {
-    expect(getIntegerNumber(3.14)).toBe(314);
-    expect(getIntegerNumber('5.67')).toBe(567);
-  });
-
-  it('should yield a currect handle negative numbers', () => {
-    expect(getIntegerNumber(-42)).toBe(42);
-  });
-
-  it('should yield NaN if there are no digits in the input', () => {
-    expect(isNaN(getIntegerNumber('abc'))).toBe(true);
-    expect(isNaN(getIntegerNumber(''))).toBe(true);
-    expect(isNaN(getIntegerNumber(null))).toBe(true);
-    expect(isNaN(getIntegerNumber(undefined))).toBe(true);
-    expect(isNaN(getIntegerNumber([]))).toBe(true);
+  posts.forEach((post) => {
+    expect(post.likes).toBeGreaterThanOrEqual(LIKES_COUNT.min);
+    expect(post.likes).toBeLessThanOrEqual(LIKES_COUNT.max);
+    expect(typeof post.description).toBe('string');
+    expect(DESCRIPTION).toContain(post.description);
   });
 });

@@ -1,10 +1,10 @@
-const POST_COUNT = 25;
-const COMMENTS_COUNT = {min: 0, max: 30};
-const LIKES_COUNT = {min: 15, max: 200};
+export const POST_COUNT = 25;
+export const COMMENTS_COUNT = {min: 0, max: 30};
+export const LIKES_COUNT = {min: 15, max: 200};
 const AVATAR_COUNT = {min: 1, max: 6};
 
 
-const DESCRIPTION = [
+export const DESCRIPTION = [
   'Просто классная фотка',
   'Красивый закат',
   'Решил поделится',
@@ -33,13 +33,43 @@ const MESSAGES = [
 let postId = 1;
 let commentId = 1;
 
+/**
+ * Генератор случайного целого числа.
+ * @param {number} min - минимальное число
+ * @param {number} max - максимальное число
+ * @returns {number} - случайное число в диапазоне [min, max]
+ */
 const getRandomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+
+/**
+ * Получить случайный элемент массива.
+ * @param {Array} elements - массив элементов
+ * @returns {*} - случайный элемент массива
+ */
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
+
+/**
+ * Создает сообщение, объединяет 1-2 случайных сообщения из MESSAGES.
+ * @returns {string} - случайное сообщение
+ */
 const createMessage = () => {
   const message = Array.from({length: getRandomInteger(1, 2)}, () => getRandomArrayElement(MESSAGES));
   return Array.from(new Set(message)).join(' ');
 };
 
+/**
+ * Описывает структуру комментария.
+ * @typedef {Object} Comment
+ * @property {number} id - уникальный идентификатор комментария
+ * @property {string} avatar - URL аватара
+ * @property {string} message - текст сообщения
+ * @property {string} name - имя автора
+ */
+
+/**
+ * Создает комментарий.
+ * @returns {Comment}
+ */
 const createComment = () => ({
   id: commentId++,
   avatar: `img/avatar-${getRandomInteger(AVATAR_COUNT.min, AVATAR_COUNT.max)}.svg`,
@@ -47,6 +77,20 @@ const createComment = () => ({
   name: getRandomArrayElement(NAMES),
 });
 
+/**
+ * Описывает структуру поста.
+ * @typedef {Object} Post
+ * @property {number} id - уникальный идентификатор поста
+ * @property {string} url - URL изображения
+ * @property {number} likes - количество лайков
+ * @property {string} description - описание поста
+ * @property {Comment[]} comments - массив комментариев
+ */
+
+/**
+ * Создает пост с комментариями.
+ * @returns {Post}
+ */
 const createPost = () => ({
   id: postId++,
   url: `photos/${postId++}.jpg`,
@@ -55,6 +99,10 @@ const createPost = () => ({
   comments : Array.from({length: getRandomInteger(COMMENTS_COUNT.min, COMMENTS_COUNT.max)}, createComment)
 });
 
+/**
+ * Создает массив постов.
+ * @returns {Post[]}
+ */
 export const createPosts = () => Array.from({length: POST_COUNT}, createPost);
 
 
