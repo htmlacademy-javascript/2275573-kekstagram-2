@@ -1,5 +1,5 @@
 import {describe, it, expect} from 'vitest';
-import { createPosts, POST_COUNT, COMMENTS_COUNT, LIKES_COUNT, DESCRIPTION} from '../js/main.js';
+import { createPosts, POST_COUNT, COMMENTS_COUNT, LIKES_COUNT, DESCRIPTION} from '../js/data.js';
 
 describe('createPosts', () => {
   it('should create an array with POST_COUNT posts', () => {
