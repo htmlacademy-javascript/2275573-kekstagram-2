@@ -5,13 +5,15 @@ const picturesContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const fragment = document.createDocumentFragment();
 
-const createThumbnail = (data) => {
+const createThumbnail = ({description, url, likes, comments}) => {
   const thumbnail = pictureTemplate.cloneNode(true);
   const img = thumbnail.querySelector('.picture__img');
-  img.src = data.url;
-  img.alt = data.description;
-  thumbnail.querySelector('.picture__likes').textContent = data.likes;
-  thumbnail.querySelector('.picture__comments').textContent = data.comments.length;
+
+  img.src = url;
+  img.alt = description;
+  thumbnail.querySelector('.picture__likes').textContent = likes;
+  thumbnail.querySelector('.picture__comments').textContent = comments.length;
+
   fragment.append(thumbnail);
 };
 
