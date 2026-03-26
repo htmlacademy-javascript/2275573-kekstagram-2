@@ -13,6 +13,7 @@ const commentsLoadingButton = modalContainer.querySelector('.comments-loader');
 const openModal = () => {
   modalContainer.classList.remove('hidden');
   document.body.classList.add('modal-open');
+
   modalCloseButton.addEventListener('click', onModalCloseButtonClick);
   document.addEventListener('keydown', onDocumentKeydown);
 };
@@ -20,6 +21,7 @@ const openModal = () => {
 const closeModal = () => {
   modalContainer.classList.add('hidden');
   document.body.classList.remove('modal-open');
+
   modalCloseButton.removeEventListener('click', onModalCloseButtonClick);
   document.removeEventListener('keydown', onDocumentKeydown);
 };
@@ -44,13 +46,14 @@ const createPhotoInfo = ({description, url, likes}) => {
   LikesCount.textContent = likes;
 };
 
-const createComment = (comment) => {
+const createComment = ({avatar, name, message}) => {
   const newComment = commentsItem.cloneNode(true);
   const img = newComment.querySelector('.social__picture');
+  const commentText = newComment.querySelector('.social__text');
 
-  img.src = comment.avatar;
-  img.alt = comment.name;
-  newComment.querySelector('.social__text').textContent = comment.message;
+  img.src = avatar;
+  img.alt = name;
+  commentText.textContent = message;
 
   return newComment;
 };
