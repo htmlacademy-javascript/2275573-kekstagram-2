@@ -1,9 +1,5 @@
 const TIMEOUT_DELAY = 500;
 
-const getRandomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
-
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
-
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const mixElements = (elements) => {
@@ -25,4 +21,4 @@ const debounce = (callback, timeoutDelay = TIMEOUT_DELAY) => {
   };
 };
 
-export {getRandomInteger, getRandomArrayElement, isEscapeKey, mixElements, debounce};
+export {isEscapeKey, mixElements, debounce};

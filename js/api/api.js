@@ -7,9 +7,11 @@ const GET_URL = `${BASE_URL}data`;
 
 const createServerData = async (url, method, body) => {
   const response = await fetch(url, {method, body});
+
   if (!response.ok) {
     throw new Error();
   }
+
   return response.json();
 };
 
