@@ -27,7 +27,7 @@ const updateCommentsCounter = () => {
   }
 
   commentsShownCounter.textContent = showComments;
-  commentsTotalCounter.textContent = comments.length;
+  commentsTotalCounter.textContent = String(comments.length);
 };
 
 const hideCommentsLoader = () => {

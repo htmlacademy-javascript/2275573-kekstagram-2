@@ -52,6 +52,7 @@ function onDocumentClick(evt) {
   if (success || error) {
     return;
   }
+
   closeMessage();
 }
 

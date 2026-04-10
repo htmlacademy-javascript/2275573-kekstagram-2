@@ -63,6 +63,14 @@ const setSliderState = (target) => {
   effectLevel.classList.remove('hidden');
 };
 
+const noUiSliderSetEvents = (value) => {
+  slider.noUiSlider.off('update');
+  slider.noUiSlider.on('update', () => {
+    effectValue.value = parseFloat(/** @type {string} */slider.noUiSlider.get());
+    previewPhoto.style.filter = `${EFFECTS[value].filter}(${effectValue.value}${EFFECTS[value].unit})`;
+  });
+};
+
 const createSlider = (target) => {
   let currentValue = target.value;
   if (!EFFECTS[currentValue]) {
@@ -79,11 +87,7 @@ const createSlider = (target) => {
     connect: 'lower'
   });
 
-  slider.noUiSlider.off('update');
-  slider.noUiSlider.on('update', () => {
-    effectValue.value = parseFloat(slider.noUiSlider.get());
-    previewPhoto.style.filter = `${EFFECTS[currentValue].filter}(${effectValue.value}${EFFECTS[currentValue].unit})`;
-  });
+  noUiSliderSetEvents(currentValue);
 };
 
 const updateEffects = (target) => {
@@ -103,11 +107,7 @@ const updateEffects = (target) => {
     connect: 'lower'
   });
 
-  slider.noUiSlider.off('update');
-  slider.noUiSlider.on('update', () => {
-    effectValue.value = parseFloat(slider.noUiSlider.get());
-    previewPhoto.style.filter = `${EFFECTS[currentValue].filter}(${effectValue.value}${EFFECTS[currentValue].unit})`;
-  });
+  noUiSliderSetEvents(currentValue);
 };
 
 const initSlider = (target) => {
