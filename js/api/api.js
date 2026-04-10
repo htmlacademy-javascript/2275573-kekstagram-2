@@ -35,7 +35,7 @@ const submitForm = async (formElement) => {
     closeForm();
     createFormSuccessMessage();
     setSubmitButtonStatus(false);
-  }catch {
+  } catch {
     createFormErrorMessage();
     setSubmitButtonStatus(false);
   }

@@ -1,4 +1,4 @@
-import {renderModal} from '../posts/gallery.js';
+import {renderModal} from './gallery';
 import {debounce} from '../utils.js';
 
 const picturesContainer = document.querySelector('.pictures');
@@ -28,6 +28,7 @@ const renderThumbnails = debounce((posts) => {
   if(!picturesContainer) {
     return;
   }
+
   deletePosts();
 
   posts.forEach((post) => createThumbnail(post));

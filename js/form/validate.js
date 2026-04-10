@@ -1,3 +1,11 @@
+/**
+ * @typedef Pristine
+ *
+ * @property {function} addValidator
+ * @property {function} validate
+ * @property {function} reset
+ * */
+
 const HASHTAGS_REGEXP = /^#[a-za-яё0-9]{1,19}$/i;
 const HASHTAGS_MAX_COUNT = 5;
 const CAPTION_MAX_LENGTH = 140;

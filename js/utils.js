@@ -9,6 +9,7 @@ const mixElements = (elements) => {
     elements[i] = elements[j];
     elements[j] = temp;
   }
+
   return elements;
 };
 
